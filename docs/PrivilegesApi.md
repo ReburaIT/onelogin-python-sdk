@@ -1,213 +1,159 @@
-
 # onelogin.PrivilegesApi
 
-All URIs are relative to *https://your-api-subdomain.onelogin.com*
+All URIs are relative to *https://virtserver.swaggerhub.com/OneLogin-Auth/onelogin-api/1.0.0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_privilege_to_role**](PrivilegesApi.md#add_privilege_to_role) | **POST** /api/1/privileges/{privilege_id}/roles | Assign a Privilege to Roles
-[**assign_users_to_privilege**](PrivilegesApi.md#assign_users_to_privilege) | **POST** /api/1/privileges/{privilege_id}/users | Assign Users to a Privilege
-[**create_privilege**](PrivilegesApi.md#create_privilege) | **POST** /api/1/privileges | Create a Privilege
-[**delete_privilege**](PrivilegesApi.md#delete_privilege) | **DELETE** /api/1/privileges/{privilege_id} | Delete a Privilege
-[**delete_role_from_privilege**](PrivilegesApi.md#delete_role_from_privilege) | **DELETE** /api/1/privileges/{privilege_id}/roles/{role_id} | Remove a Privilege from a Role
-[**get_assigned_user**](PrivilegesApi.md#get_assigned_user) | **GET** /api/1/privileges/{privilege_id}/users | Get Users assigned to a Privilege
-[**get_privilege**](PrivilegesApi.md#get_privilege) | **GET** /api/1/privileges/{privilege_id} | Get a Privilege
-[**list_privilege_roles**](PrivilegesApi.md#list_privilege_roles) | **GET** /api/1/privileges/{privilege_id}/roles | Get Roles assigned to Privilege
-[**list_privileges**](PrivilegesApi.md#list_privileges) | **GET** /api/1/privileges | List Privileges
-[**remove_user_from_privilege**](PrivilegesApi.md#remove_user_from_privilege) | **DELETE** /api/1/privileges/{privilege_id}/users/{user_id} | Remove a Privilege from Users
-[**update_privilege**](PrivilegesApi.md#update_privilege) | **PUT** /api/1/privileges/{privilege_id} | Update a Privilege
+[**add_privilege_roles**](PrivilegesApi.md#add_privilege_roles) | **POST** /1/privileges/{id}/roles | Assign roles
+[**add_privilege_users**](PrivilegesApi.md#add_privilege_users) | **POST** /1/privileges/{id}/users | Assign users
+[**create_privilege**](PrivilegesApi.md#create_privilege) | **POST** /1/privileges | Creates privilege
+[**delete_privilege**](PrivilegesApi.md#delete_privilege) | **DELETE** /1/privileges/{id} | Delete privilege
+[**get_privilege**](PrivilegesApi.md#get_privilege) | **GET** /1/privileges/{id} | Get privilege
+[**get_privilege_roles**](PrivilegesApi.md#get_privilege_roles) | **GET** /1/privileges/{id}/roles | Get roles
+[**get_privilege_users**](PrivilegesApi.md#get_privilege_users) | **GET** /1/privileges/{id}/users | Get privilege users
+[**get_privileges**](PrivilegesApi.md#get_privileges) | **GET** /1/privileges | Get Privileges
+[**remove_privilege_role**](PrivilegesApi.md#remove_privilege_role) | **DELETE** /1/privileges/{id}/roles/{role_id} | Remove a role
+[**remove_privlege_user**](PrivilegesApi.md#remove_privlege_user) | **DELETE** /1/privileges/{id}/users/{user_id} | Remove a user
+[**update_privilege**](PrivilegesApi.md#update_privilege) | **PUT** /1/privileges/{id} | Update privilege
 
 
-# **add_privilege_to_role**
-> AddPrivilegeToRole201Response add_privilege_to_role(privilege_id, add_privilege_to_role_request=add_privilege_to_role_request)
+# **add_privilege_roles**
+> AssignPrivilegeRolesResponse add_privilege_roles(id, assign_privilege_roles_request)
 
-Assign a Privilege to Roles
+Assign roles
 
-Add roles to privilege 
+Use this API to assign a privilege to one or more roles.
 
 ### Example
-
-* OAuth Authentication (OAuth2):
 ```python
+from __future__ import print_function
 import time
-import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = onelogin.Configuration(
-    host = "https://your-api-subdomain.onelogin.com"
-)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
+# Configure OAuth2 access token for authorization: application
+configuration = onelogin.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
+# create an instance of the API class
+api_instance = onelogin.PrivilegesApi(onelogin.ApiClient(configuration))
+id = 'id_example' # str | Privilege ID
+assign_privilege_roles_request = onelogin.AssignPrivilegeRolesRequest() # AssignPrivilegeRolesRequest | Roles
 
-# Enter a context with an instance of the API client
-with onelogin.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = onelogin.PrivilegesApi(api_client)
-    privilege_id = 'privilege_id_example' # str | 
-    add_privilege_to_role_request = onelogin.AddPrivilegeToRoleRequest() # AddPrivilegeToRoleRequest |  (optional)
-
-    try:
-        # Assign a Privilege to Roles
-        api_response = api_instance.add_privilege_to_role(privilege_id, add_privilege_to_role_request=add_privilege_to_role_request)
-        print("The response of PrivilegesApi->add_privilege_to_role:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling PrivilegesApi->add_privilege_to_role: %s\n" % e)
+try:
+    # Assign roles
+    api_response = api_instance.add_privilege_roles(id, assign_privilege_roles_request)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling PrivilegesApi->add_privilege_roles: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **privilege_id** | **str**|  | 
- **add_privilege_to_role_request** | [**AddPrivilegeToRoleRequest**](AddPrivilegeToRoleRequest.md)|  | [optional] 
+ **id** | [**str**](.md)| Privilege ID | 
+ **assign_privilege_roles_request** | [**AssignPrivilegeRolesRequest**](AssignPrivilegeRolesRequest.md)| Roles | 
 
 ### Return type
 
-[**AddPrivilegeToRole201Response**](AddPrivilegeToRole201Response.md)
+[**AssignPrivilegeRolesResponse**](AssignPrivilegeRolesResponse.md)
 
 ### Authorization
 
-[OAuth2](../README.md#OAuth2)
+[application](../README.md#application)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**201** | Created |  -  |
-**400** | Bad Request |  -  |
-**401** | Unauthorized |  -  |
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **assign_users_to_privilege**
-> AddPrivilegeToRole201Response assign_users_to_privilege(privilege_id, assign_users_to_privilege_request=assign_users_to_privilege_request)
+# **add_privilege_users**
+> AssignPrivilegeRolesResponse add_privilege_users(id, assign_privilege_users_request)
 
-Assign Users to a Privilege
+Assign users
 
-Assign Users to Privilege
+Use this API to assign a privilege to one or more users.
 
 ### Example
-
-* OAuth Authentication (OAuth2):
 ```python
+from __future__ import print_function
 import time
-import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = onelogin.Configuration(
-    host = "https://your-api-subdomain.onelogin.com"
-)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
+# Configure OAuth2 access token for authorization: application
+configuration = onelogin.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
+# create an instance of the API class
+api_instance = onelogin.PrivilegesApi(onelogin.ApiClient(configuration))
+id = 'id_example' # str | Privilege ID
+assign_privilege_users_request = onelogin.AssignPrivilegeUsersRequest() # AssignPrivilegeUsersRequest | Users
 
-# Enter a context with an instance of the API client
-with onelogin.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = onelogin.PrivilegesApi(api_client)
-    privilege_id = 'privilege_id_example' # str | 
-    assign_users_to_privilege_request = onelogin.AssignUsersToPrivilegeRequest() # AssignUsersToPrivilegeRequest |  (optional)
-
-    try:
-        # Assign Users to a Privilege
-        api_response = api_instance.assign_users_to_privilege(privilege_id, assign_users_to_privilege_request=assign_users_to_privilege_request)
-        print("The response of PrivilegesApi->assign_users_to_privilege:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling PrivilegesApi->assign_users_to_privilege: %s\n" % e)
+try:
+    # Assign users
+    api_response = api_instance.add_privilege_users(id, assign_privilege_users_request)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling PrivilegesApi->add_privilege_users: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **privilege_id** | **str**|  | 
- **assign_users_to_privilege_request** | [**AssignUsersToPrivilegeRequest**](AssignUsersToPrivilegeRequest.md)|  | [optional] 
+ **id** | [**str**](.md)| Privilege ID | 
+ **assign_privilege_users_request** | [**AssignPrivilegeUsersRequest**](AssignPrivilegeUsersRequest.md)| Users | 
 
 ### Return type
 
-[**AddPrivilegeToRole201Response**](AddPrivilegeToRole201Response.md)
+[**AssignPrivilegeRolesResponse**](AssignPrivilegeRolesResponse.md)
 
 ### Authorization
 
-[OAuth2](../README.md#OAuth2)
+[application](../README.md#application)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response |  -  |
-**400** | Bad Request |  -  |
-**401** | Unauthorized |  -  |
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_privilege**
-> Privilege create_privilege(privilege=privilege)
+> CreatePrivilegeResponse create_privilege(privilege=privilege)
 
-Create a Privilege
+Creates privilege
 
-Create privilege
+Creates a privilege    
 
 ### Example
-
-* OAuth Authentication (OAuth2):
 ```python
+from __future__ import print_function
 import time
-import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = onelogin.Configuration(
-    host = "https://your-api-subdomain.onelogin.com"
-)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
+# Configure OAuth2 access token for authorization: application
+configuration = onelogin.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
+# create an instance of the API class
+api_instance = onelogin.PrivilegesApi(onelogin.ApiClient(configuration))
+privilege = onelogin.Privilege() # Privilege |  (optional)
 
-# Enter a context with an instance of the API client
-with onelogin.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = onelogin.PrivilegesApi(api_client)
-    privilege = {"name":"User Helpdesk","description":"Can administer helpdesk users","privilege":{"Version":"2018-05-18","Statement":[{"Effect":"Allow","Action":["Users:List","Users:Get","Users:Unlock","Users:ResetPassword","Users:GenerateTempMfaToken"],"Scope":["*"]}]}} # Privilege |  (optional)
-
-    try:
-        # Create a Privilege
-        api_response = api_instance.create_privilege(privilege=privilege)
-        print("The response of PrivilegesApi->create_privilege:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling PrivilegesApi->create_privilege: %s\n" % e)
+try:
+    # Creates privilege
+    api_response = api_instance.create_privilege(privilege=privilege)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling PrivilegesApi->create_privilege: %s\n" % e)
 ```
 
 ### Parameters
@@ -218,73 +164,54 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Privilege**](Privilege.md)
+[**CreatePrivilegeResponse**](CreatePrivilegeResponse.md)
 
 ### Authorization
 
-[OAuth2](../README.md#OAuth2)
+[application](../README.md#application)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response |  -  |
-**400** | Bad Request |  -  |
-**401** | Unauthorized |  -  |
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_privilege**
-> delete_privilege(privilege_id)
+> delete_privilege(id)
 
-Delete a Privilege
+Delete privilege
 
-Delete
+Delete a privilege    
 
 ### Example
-
-* OAuth Authentication (OAuth2):
 ```python
+from __future__ import print_function
 import time
-import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = onelogin.Configuration(
-    host = "https://your-api-subdomain.onelogin.com"
-)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
+# Configure OAuth2 access token for authorization: application
+configuration = onelogin.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
+# create an instance of the API class
+api_instance = onelogin.PrivilegesApi(onelogin.ApiClient(configuration))
+id = 'id_example' # str | Privilege ID
 
-# Enter a context with an instance of the API client
-with onelogin.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = onelogin.PrivilegesApi(api_client)
-    privilege_id = 'privilege_id_example' # str | 
-
-    try:
-        # Delete a Privilege
-        api_instance.delete_privilege(privilege_id)
-    except Exception as e:
-        print("Exception when calling PrivilegesApi->delete_privilege: %s\n" % e)
+try:
+    # Delete privilege
+    api_instance.delete_privilege(id)
+except ApiException as e:
+    print("Exception when calling PrivilegesApi->delete_privilege: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **privilege_id** | **str**|  | 
+ **id** | [**str**](.md)| Privilege ID | 
 
 ### Return type
 
@@ -292,428 +219,255 @@ void (empty response body)
 
 ### Authorization
 
-[OAuth2](../README.md#OAuth2)
+[application](../README.md#application)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**204** | No Content |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **delete_role_from_privilege**
-> delete_role_from_privilege(privilege_id, role_id)
-
-Remove a Privilege from a Role
-
-Add roles to privilege
-
-### Example
-
-* OAuth Authentication (OAuth2):
-```python
-import time
-import os
-import onelogin
-from onelogin.rest import ApiException
-from pprint import pprint
-# Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = onelogin.Configuration(
-    host = "https://your-api-subdomain.onelogin.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-# Enter a context with an instance of the API client
-with onelogin.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = onelogin.PrivilegesApi(api_client)
-    privilege_id = 'privilege_id_example' # str | 
-    role_id = 'role_id_example' # str | Set to the id of the role you want to return.
-
-    try:
-        # Remove a Privilege from a Role
-        api_instance.delete_role_from_privilege(privilege_id, role_id)
-    except Exception as e:
-        print("Exception when calling PrivilegesApi->delete_role_from_privilege: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **privilege_id** | **str**|  | 
- **role_id** | **str**| Set to the id of the role you want to return. | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[OAuth2](../README.md#OAuth2)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**204** | No Content |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_assigned_user**
-> GetAssignedUser200Response get_assigned_user(privilege_id)
-
-Get Users assigned to a Privilege
-
-Get Assigned Users
-
-### Example
-
-* OAuth Authentication (OAuth2):
-```python
-import time
-import os
-import onelogin
-from onelogin.rest import ApiException
-from pprint import pprint
-# Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = onelogin.Configuration(
-    host = "https://your-api-subdomain.onelogin.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-# Enter a context with an instance of the API client
-with onelogin.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = onelogin.PrivilegesApi(api_client)
-    privilege_id = 'privilege_id_example' # str | 
-
-    try:
-        # Get Users assigned to a Privilege
-        api_response = api_instance.get_assigned_user(privilege_id)
-        print("The response of PrivilegesApi->get_assigned_user:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling PrivilegesApi->get_assigned_user: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **privilege_id** | **str**|  | 
-
-### Return type
-
-[**GetAssignedUser200Response**](GetAssignedUser200Response.md)
-
-### Authorization
-
-[OAuth2](../README.md#OAuth2)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_privilege**
-> Privilege get_privilege(privilege_id)
+> get_privilege(id)
 
-Get a Privilege
+Get privilege
 
-Get a Privilige
+Get a privilege    
 
 ### Example
-
-* OAuth Authentication (OAuth2):
 ```python
+from __future__ import print_function
 import time
-import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = onelogin.Configuration(
-    host = "https://your-api-subdomain.onelogin.com"
-)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
+# Configure OAuth2 access token for authorization: application
+configuration = onelogin.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
+# create an instance of the API class
+api_instance = onelogin.PrivilegesApi(onelogin.ApiClient(configuration))
+id = 'id_example' # str | Privilege ID
 
-# Enter a context with an instance of the API client
-with onelogin.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = onelogin.PrivilegesApi(api_client)
-    privilege_id = 'privilege_id_example' # str | 
-
-    try:
-        # Get a Privilege
-        api_response = api_instance.get_privilege(privilege_id)
-        print("The response of PrivilegesApi->get_privilege:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling PrivilegesApi->get_privilege: %s\n" % e)
+try:
+    # Get privilege
+    api_instance.get_privilege(id)
+except ApiException as e:
+    print("Exception when calling PrivilegesApi->get_privilege: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **privilege_id** | **str**|  | 
+ **id** | [**str**](.md)| Privilege ID | 
 
 ### Return type
 
-[**Privilege**](Privilege.md)
+void (empty response body)
 
 ### Authorization
 
-[OAuth2](../README.md#OAuth2)
+[application](../README.md#application)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list_privilege_roles**
-> ListPrivilegeRoles200Response list_privilege_roles(privilege_id)
+# **get_privilege_roles**
+> PrivilegeRolesResponse get_privilege_roles(id)
 
-Get Roles assigned to Privilege
+Get roles
 
-List roles for privilege
+Get roles assigned to a privilege  
 
 ### Example
-
-* OAuth Authentication (OAuth2):
 ```python
+from __future__ import print_function
 import time
-import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = onelogin.Configuration(
-    host = "https://your-api-subdomain.onelogin.com"
-)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
+# Configure OAuth2 access token for authorization: application
+configuration = onelogin.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
+# create an instance of the API class
+api_instance = onelogin.PrivilegesApi(onelogin.ApiClient(configuration))
+id = 'id_example' # str | Privilege ID
 
-# Enter a context with an instance of the API client
-with onelogin.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = onelogin.PrivilegesApi(api_client)
-    privilege_id = 'privilege_id_example' # str | 
-
-    try:
-        # Get Roles assigned to Privilege
-        api_response = api_instance.list_privilege_roles(privilege_id)
-        print("The response of PrivilegesApi->list_privilege_roles:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling PrivilegesApi->list_privilege_roles: %s\n" % e)
+try:
+    # Get roles
+    api_response = api_instance.get_privilege_roles(id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling PrivilegesApi->get_privilege_roles: %s\n" % e)
 ```
-
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **privilege_id** | **str**|  | 
+ **id** | [**str**](.md)| Privilege ID | 
 
 ### Return type
 
-[**ListPrivilegeRoles200Response**](ListPrivilegeRoles200Response.md)
+[**PrivilegeRolesResponse**](PrivilegeRolesResponse.md)
 
 ### Authorization
 
-[OAuth2](../README.md#OAuth2)
+[application](../README.md#application)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list_privileges**
-> List[Privilege] list_privileges()
+# **get_privilege_users**
+> PrivilegeUsersResponse get_privilege_users(id)
 
-List Privileges
+Get privilege users
 
-List Privileges
+Get users assigned to a privilege  
 
 ### Example
-
-* OAuth Authentication (OAuth2):
 ```python
+from __future__ import print_function
 import time
-import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = onelogin.Configuration(
-    host = "https://your-api-subdomain.onelogin.com"
-)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
+# Configure OAuth2 access token for authorization: application
+configuration = onelogin.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
+# create an instance of the API class
+api_instance = onelogin.PrivilegesApi(onelogin.ApiClient(configuration))
+id = 'id_example' # str | Privilege ID
 
-# Enter a context with an instance of the API client
-with onelogin.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = onelogin.PrivilegesApi(api_client)
-
-    try:
-        # List Privileges
-        api_response = api_instance.list_privileges()
-        print("The response of PrivilegesApi->list_privileges:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling PrivilegesApi->list_privileges: %s\n" % e)
+try:
+    # Get privilege users
+    api_response = api_instance.get_privilege_users(id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling PrivilegesApi->get_privilege_users: %s\n" % e)
 ```
 
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**str**](.md)| Privilege ID | 
+
+### Return type
+
+[**PrivilegeUsersResponse**](PrivilegeUsersResponse.md)
+
+### Authorization
+
+[application](../README.md#application)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_privileges**
+> list[Privilege] get_privileges()
+
+Get Privileges
+
+Use this API to list the Privileges created in an account.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import onelogin
+from onelogin.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: application
+configuration = onelogin.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = onelogin.PrivilegesApi(onelogin.ApiClient(configuration))
+
+try:
+    # Get Privileges
+    api_response = api_instance.get_privileges()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling PrivilegesApi->get_privileges: %s\n" % e)
+```
 
 ### Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-[**List[Privilege]**](Privilege.md)
+[**list[Privilege]**](Privilege.md)
 
 ### Authorization
 
-[OAuth2](../README.md#OAuth2)
+[application](../README.md#application)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response |  -  |
-**401** | Unauthorized |  -  |
-
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **remove_user_from_privilege**
-> remove_user_from_privilege(privilege_id, user_id)
+# **remove_privilege_role**
+> remove_privilege_role(id, role_id)
 
-Remove a Privilege from Users
+Remove a role
 
-Remove a Privilege from Users
+Use this API to remove a single role from a privilege.
 
 ### Example
-
-* OAuth Authentication (OAuth2):
 ```python
+from __future__ import print_function
 import time
-import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = onelogin.Configuration(
-    host = "https://your-api-subdomain.onelogin.com"
-)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
+# Configure OAuth2 access token for authorization: application
+configuration = onelogin.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
+# create an instance of the API class
+api_instance = onelogin.PrivilegesApi(onelogin.ApiClient(configuration))
+id = 'id_example' # str | Privilege ID
+role_id = 56 # int | Role ID
 
-# Enter a context with an instance of the API client
-with onelogin.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = onelogin.PrivilegesApi(api_client)
-    privilege_id = 'privilege_id_example' # str | 
-    user_id = 56 # int | Set to the id of the user that you want to return.
-
-    try:
-        # Remove a Privilege from Users
-        api_instance.remove_user_from_privilege(privilege_id, user_id)
-    except Exception as e:
-        print("Exception when calling PrivilegesApi->remove_user_from_privilege: %s\n" % e)
+try:
+    # Remove a role
+    api_instance.remove_privilege_role(id, role_id)
+except ApiException as e:
+    print("Exception when calling PrivilegesApi->remove_privilege_role: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **privilege_id** | **str**|  | 
- **user_id** | **int**| Set to the id of the user that you want to return. | 
+ **id** | [**str**](.md)| Privilege ID | 
+ **role_id** | **int**| Role ID | 
 
 ### Return type
 
@@ -721,93 +475,119 @@ void (empty response body)
 
 ### Authorization
 
-[OAuth2](../README.md#OAuth2)
+[application](../README.md#application)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**204** | No Content |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_privilege**
-> UpdatePrivilege200Response update_privilege(privilege_id, privilege=privilege)
+# **remove_privlege_user**
+> remove_privlege_user(id, user_id)
 
-Update a Privilege
+Remove a user
 
-Update privilege
+Use this API to remove a single user from a privilege.
 
 ### Example
-
-* OAuth Authentication (OAuth2):
 ```python
+from __future__ import print_function
 import time
-import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = onelogin.Configuration(
-    host = "https://your-api-subdomain.onelogin.com"
-)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
+# Configure OAuth2 access token for authorization: application
+configuration = onelogin.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
+# create an instance of the API class
+api_instance = onelogin.PrivilegesApi(onelogin.ApiClient(configuration))
+id = 'id_example' # str | Privilege ID
+user_id = 56 # int | User ID
 
-# Enter a context with an instance of the API client
-with onelogin.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = onelogin.PrivilegesApi(api_client)
-    privilege_id = 'privilege_id_example' # str | 
-    privilege = {"name":"User Administrator","description":"Can administer users","privilege":{"Version":"2018-05-18","Statement":[{"Effect":"Allow","Action":["Users:List","Users:Get","Users:Unlock","Users:ResetPassword","Users:GenerateTempMfaToken"],"Scope":["*"]}]}} # Privilege |  (optional)
-
-    try:
-        # Update a Privilege
-        api_response = api_instance.update_privilege(privilege_id, privilege=privilege)
-        print("The response of PrivilegesApi->update_privilege:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling PrivilegesApi->update_privilege: %s\n" % e)
+try:
+    # Remove a user
+    api_instance.remove_privlege_user(id, user_id)
+except ApiException as e:
+    print("Exception when calling PrivilegesApi->remove_privlege_user: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **privilege_id** | **str**|  | 
- **privilege** | [**Privilege**](Privilege.md)|  | [optional] 
+ **id** | [**str**](.md)| Privilege ID | 
+ **user_id** | **int**| User ID | 
 
 ### Return type
 
-[**UpdatePrivilege200Response**](UpdatePrivilege200Response.md)
+void (empty response body)
 
 ### Authorization
 
-[OAuth2](../README.md#OAuth2)
+[application](../README.md#application)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response |  -  |
-**400** | Bad Request |  -  |
-**401** | Unauthorized |  -  |
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_privilege**
+> CreatePrivilegeResponse update_privilege(id, update_privilege_request=update_privilege_request)
+
+Update privilege
+
+Update a privilege    
+
+### Example
+```python
+from __future__ import print_function
+import time
+import onelogin
+from onelogin.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: application
+configuration = onelogin.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = onelogin.PrivilegesApi(onelogin.ApiClient(configuration))
+id = 'id_example' # str | Privilege ID
+update_privilege_request = onelogin.Privilege() # Privilege |  (optional)
+
+try:
+    # Update privilege
+    api_response = api_instance.update_privilege(id, update_privilege_request=update_privilege_request)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling PrivilegesApi->update_privilege: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**str**](.md)| Privilege ID | 
+ **update_privilege_request** | [**Privilege**](Privilege.md)|  | [optional] 
+
+### Return type
+
+[**CreatePrivilegeResponse**](CreatePrivilegeResponse.md)
+
+### Authorization
+
+[application](../README.md#application)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
